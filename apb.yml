@@ -5,6 +5,7 @@ bindable: false
 async: optional
 metadata:
   displayName: NGINX Unit
+  imageUrl: https://cdn-1.wp.nginx.com/wp-content/uploads/2017/08/unit-greyscale-icon.png
   longDescription: NGINX Unit is an dynamic multi-lingual application server for modern distributed applications. It launches application code and provides access to your application.
 plans:
   - name: default
