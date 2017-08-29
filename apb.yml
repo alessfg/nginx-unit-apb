@@ -1,0 +1,24 @@
+name: nginx-unit-apb
+image: nginxinc/nginx-unit-apb
+description: NGINX Unit is an dynamic multi-lingual application server for modern distributed applications.
+bindable: false
+async: optional
+metadata:
+  displayName: NGINX Unit
+  longDescription: NGINX Unit is an dynamic multi-lingual application server for modern distributed applications. It launches application code and provides access to your application.
+plans:
+  - name: default
+    description: This default plan deploys NGINX Unit
+    free: true
+    metadata: {}
+    parameters:
+      - name: configuration
+        default: '{"applications":{"example_php":{"type":"php","workers":2,"root":"/srv/src","index":"index.php"}},"listeners":{"*:8300":{"application":"example_php"}}}'
+        type: string
+        required: true
+        title: NGINX Unit JSON Payload
+      - name: repository
+        default: https://gist.github.com/7bb161d271b71e139cb5e606b4f1a4b4.git
+        type: string
+        required: true
+        title: Git Repository URL

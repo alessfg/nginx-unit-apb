@@ -1,0 +1,115 @@
+##############################################################################
+## Provision NGINX Unit APB
+## This role executes much of the needed functionality to provision an
+## application using an Ansible Playbook Bundle. Included in the comments
+## below are some sample resources for getting started deploying an application
+## to OpenShift.
+##############################################################################
+
+##############################################################################
+## An OpenShift Origin deployment configuration provides a replication
+## controller, spins up pods, and also provides the ability to transition from
+## one deployment of an image to a new one.
+## https://docs.openshift.org/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations
+##############################################################################
+- name: Create NGINX Unit APB deployment config
+  openshift_v1_deployment_config:
+    name: nginx-unit-apb
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb
+    replicas: 1
+    selector:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb
+    spec_template_metadata_labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb
+    containers:
+      - image: unit
+        imagePullPolicy: IfNotPresent
+        name: nginx-unit-apb
+        ports:
+          - container_port: 8443
+            protocol: TCP
+          - container_port: 8300
+            protocol: TCP
+          - container_port: 8400
+            protocol: TCP
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - "/bin/sh"
+                - "-i"
+                - "-c"
+                - >
+                  git clone {{ repository }} /srv/src && curl -X PUT -d '{{ configuration }}' 0.0.0.0:8443
+    restart_policy: Always
+
+##############################################################################
+## A Kubernetes service serves as an internal load balancer. It identifies a
+## set of replicated pods in order to proxy the connections it receives to them.
+## https://docs.openshift.org/latest/architecture/core_concepts/pods_and_services.html#services
+##############################################################################
+- name: Create NGINX Unit APB service
+  k8s_v1_service:
+    name: nginx-unit-apb
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb
+    state: present
+    selector:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb
+    ports:
+      - name: api
+        port: 8443
+        target_port: 8443
+      - name: app1
+        port: 8300
+        target_port: 8300
+      - name: app2
+        port: 8400
+        target_port: 8400
+
+##############################################################################
+## An OpenShift Origin route exposes a service at a host name, so that external
+## clients can reach it by name. Each route consists of a name, a service
+## selector, and an optional security configuration.
+## https://docs.openshift.org/latest/architecture/core_concepts/routes.html
+##############################################################################
+- name: Create NGINX Unit APB api route
+  openshift_v1_route:
+    name: nginx-unit-apb-api
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb-api
+    state: present
+    to_name: nginx-unit-apb
+    spec_port_target_port: api
+
+- name: Create NGINX Unit APB app1 route
+  openshift_v1_route:
+    name: nginx-unit-apb-app1
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb-app1
+    state: present
+    to_name: nginx-unit-apb
+    spec_port_target_port: app1
+
+- name: Create NGINX Unit APB app2 route
+  openshift_v1_route:
+    name: nginx-unit-apb-app2
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb-app2
+    state: present
+    to_name: nginx-unit-apb
+    spec_port_target_port: app2

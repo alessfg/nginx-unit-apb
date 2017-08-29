@@ -1,0 +1,56 @@
+{
+  "applications": {
+    "example_php": {
+      "type": "php",
+      "workers": 2,
+      "root": "/srv/src",
+      "index": "index.php"
+    }
+  },
+  "listeners": {
+    "*:8300": {
+      "application": "example_php"
+    }
+  }
+}
+
+{
+  "applications": {
+    "example_python": {
+      "type": "python",
+      "workers": 2,
+      "path": "/srv/src",
+      "module": "wsgi"
+    }
+  },
+  "listeners": {
+    "*:8400": {
+      "application": "example_python"
+    }
+  }
+}
+
+{
+  "applications": {
+    "example_php": {
+      "type": "php",
+      "workers": 2,
+      "root": "/srv/src/php",
+      "index": "index.php"
+    },
+    "example_python": {
+      "type": "python",
+      "workers": 2,
+      "path": "/srv/src/python",
+      "module": "wsgi"
+    }
+  },
+  "listeners": {
+    "*:8300": {
+      "application": "example_php"
+    },
+    "*:8400": {
+      "application": "example_python"
+    }
+  }
+}
