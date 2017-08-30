@@ -1,10 +1,10 @@
 FROM ubuntu:xenial
 
 # For testing purposes - can be removed if desired
-RUN apt-get update && apt-get install -y procps net-tools git
+RUN apt-get update && apt-get install -y procps net-tools
 
 RUN apt-get update \
-    && apt-get install -y apt-transport-https \
+    && apt-get install -y apt-transport-https git \
     && \
     NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
     found=''; \
