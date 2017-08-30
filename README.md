@@ -8,7 +8,7 @@ An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Unit.
 
 To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [Catasb](https://github.com/fusor/catasb) is a collection of playbooks to create an OpenShift environment with a Service Catalog & Ansible Service Broker in a local or EC-2 environment and will allow you to create an OpenShift Docker cluster on any machine and install all the required dependencies.
 
-As part of setting up `catasb` you will need to set some variables on `config/my_vars.yml`. To get the NGINX Unit APB working you will need to specify the following in that file:
+As part of setting up `catasb` you will need to set some additional parameters on `config/my_vars.yml` to allow the NGINX Unit APB to function properly:
 * scc_anyuid: true
 * broker_enable_basic_auth: false
 * broker_bootstrap_refresh_interval: 86400s
