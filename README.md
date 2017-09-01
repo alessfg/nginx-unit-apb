@@ -6,22 +6,21 @@ An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Unit.
 
 ## Development Environment Setup
 
-To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [Catasb](https://github.com/fusor/catasb) is a collection of playbooks to create an OpenShift environment with a Service Catalog & Ansible Service Broker in a local or EC-2 environment and will allow you to create an OpenShift Docker cluster on any machine and install all the required dependencies.
+To test this APB you will first need to setup an OpenShift Origin environment with a Service Catalog and Ansible Service Broker. [`catasb`](https://github.com/fusor/catasb) is a collection of playbooks to create an OpenShift environment with a Service Catalog & Ansible Service Broker in a local or EC-2 environment and will allow you to create an OpenShift Docker cluster on any machine and install all the required dependencies.
 
-As part of setting up `catasb` you will need to set some additional parameters on `config/my_vars.yml` to allow the NGINX Unit APB to function properly:
+As part of setting up [`catasb`](https://github.com/fusor/catasb) you will need to set some additional parameters on `config/my_vars.yml` to allow the NGINX Unit APB to function properly:
 * scc_anyuid: true
 * broker_enable_basic_auth: false
 * broker_bootstrap_refresh_interval: 86400s
 
 You will also need to install the [APB application](https://github.com/fusor/ansible-playbook-bundle).
 
-Finally, you will need to build an NGINX Unit Docker image and tag it as `unit`. A Dockerfile can be found in `dev/Dockerfile`.
-
 ## How to Install and Test the NGINX Unit Service
 
-1. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
-2. Clone the NGINX Unit APB repository (this repository).
-3. Navigate to the repository and run `apb build && apb push`.
+1. You need to build an NGINX Unit Docker image and tag it as `unit`. A Dockerfile to build the image can be found in [`dev/Dockerfile`](https://github.com/nginxinc/nginx-unit-apb/blob/master/dev/Dockerfile).
+2. Login to your `oc` cluster via the command that [catasb](https://github.com/fusor/catasb) will output at the end of the installation process.
+3. Clone the NGINX Unit APB repository (this repository).
+4. Navigate to the repository and run `apb build && apb push`.
 5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
 6. Select the NGINX Unit service, add it to `My Project`, select `Create` and click `View Project`.
     * The default options will deploy a simple PHP server.
