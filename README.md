@@ -25,7 +25,10 @@ You will also need to install the [APB application](https://github.com/fusor/ans
 6. Select the NGINX Unit service, add it to `My Project`, select `Create` and click `View Project`.
     * The default options will deploy a simple PHP server.
     * Other sample configurations can be found in the `Sample Configurations` subheader.
-7. After waiting for a few seconds you should see a URL pop in the top-right corner of the project overview GUI. That URL will take you to the NGINX Unit API page.
+    * Please note that by default only ports 8300 and 8400 are mapped to an external URL. Using any other ports in the NGINX Unit JSON configuration will result in an error.
+7. After waiting for a few seconds you should see the pod has deployed.
+    * If you deployed an application on port 8300, visit http://nginx-unit-apb-app1-unit-php.192.168.37.1.nip.io to see it in action.
+    * If you deployed an application on port 8400, visit http://nginx-unit-apb-app2-unit-php.192.168.37.1.nip.io to see it in action.
 
 ## Parameters
 
