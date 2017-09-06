@@ -31,8 +31,8 @@ You will also need to install the [APB application](https://github.com/fusor/ans
 
 Name | Default Value | Required | Description
 ---|---|---|---
-configuration | {"applications":{"example_php":{"type":"php","workers":2,"root":"/srv/src","index":"index.php"}},"listeners":{"*:8300":{"application":"example_php"}}} | Yes | NGINX Unit JSON Payload
-repository | <https://gist.github.com/7bb161d271b71e139cb5e606b4f1a4b4.git> | Yes | Git Repository URL
+configuration | `{"applications":{"example_php":{"type":"php","workers":2,"root":"/srv/src","index":"index.php"}},"listeners":{"*:8300":{"application":"example_php"}}}` | Yes | NGINX Unit JSON Payload
+repository | `https://gist.github.com/7bb161d271b71e139cb5e606b4f1a4b4.git` | Yes | Git Repository URL
 
 ## Sample Configurations
 
