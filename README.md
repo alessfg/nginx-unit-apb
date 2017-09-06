@@ -1,6 +1,6 @@
 # Ansible Playbook Bundle for NGINX Unit
 
-An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Unit.
+An Ansible Playbook Bundle (APB) for deploying a single instance of NGINX Unit in the OpenShift Service Catalog.
 
 **Please Note**: This is still a WIP. Any upstream changes might break the APB without previous warning.
 
