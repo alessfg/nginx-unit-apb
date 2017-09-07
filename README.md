@@ -22,13 +22,14 @@ You will also need to install the [APB application](https://github.com/fusor/ans
 3. Clone the NGINX Unit APB repository (this repository).
 4. Navigate to the repository and run `apb build && apb push`.
 5. Open your browser at https://192.168.37.1:8443. You'll be greeted by the OpenShift service catalog.
-6. Select the NGINX Unit service, add it to `My Project`, select `Create` and click `View Project`.
+6. Select the NGINX Unit service, add it to a `My Project` (or alternatively create a new project), select `Create` and click `View Project`.
     * The default options will deploy a simple PHP server.
     * Other sample configurations can be found in the `Sample Configurations` subheader.
     * Please note that by default only ports 8300 and 8400 are mapped to an external URL. Using any other ports in the NGINX Unit JSON configuration will result in an error.
-7. After waiting for a few seconds you should see the pod has deployed.
-    * If you deployed an application on port 8300, visit http://nginx-unit-apb-app1-unit-php.192.168.37.1.nip.io to see it in action.
-    * If you deployed an application on port 8400, visit http://nginx-unit-apb-app2-unit-php.192.168.37.1.nip.io to see it in action.
+7. After waiting for a few seconds you should see the pod has deployed. (**Note:** *Replace ${project-name} with the name of the project where you deployed NGINX Unit*.)
+    * If you want to view the NGINX Unit API, visit `http://nginx-unit-apb-api-${project-name}.192.168.37.1.nip.io` to see it in action.
+    * If you deployed an application on port 8300, visit `http://nginx-unit-apb-app1-${project-name}.192.168.37.1.nip.io` to see it in action.
+    * If you deployed an application on port 8400, visit `http://nginx-unit-apb-app2-${project-name}.192.168.37.1.nip.io` to see it in action.
 
 ## Parameters
 
