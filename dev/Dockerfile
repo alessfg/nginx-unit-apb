@@ -18,11 +18,10 @@ RUN apt-get update \
         apt-key adv --keyserver "$server" --keyserver-options timeout=10 --recv-keys "$NGINX_GPGKEY" && found=yes && break; \
     done; \
     test -z "$found" && echo >&2 "error: failed to fetch GPG key $NGINX_GPGKEY" && exit 1; \
-    apt-get -y --purge autoremove && rm -rf /var/lib/apt/lists/* \
-    && echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" >> /etc/apt/sources.list \
+    echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" >> /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y unit \
-    && apt-get remove --purge -y apt-transport-https && rm -rf /var/lib/apt/lists/*
+    && apt-get remove --purge --autoremove -y apt-transport-https && rm -rf /var/lib/apt/lists/*
 
 STOPSIGNAL SIGTERM
 
