@@ -8,6 +8,12 @@
 ##############################################################################
 ## Deprovision a route
 ##############################################################################
+- name: Delete NGINX Unit APB api route
+  openshift_v1_route:
+    name: nginx-unit-apb-api
+    namespace: '{{ namespace }}'
+    state: absent
+
 - name: Delete NGINX Unit APB app1 route
   openshift_v1_route:
     name: nginx-unit-apb-app1

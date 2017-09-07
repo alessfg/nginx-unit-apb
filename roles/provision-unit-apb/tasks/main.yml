@@ -31,6 +31,8 @@
         imagePullPolicy: IfNotPresent
         name: nginx-unit-apb
         ports:
+          - container_port: 8443
+            protocol: TCP
           - container_port: 8300
             protocol: TCP
           - container_port: 8400
@@ -43,7 +45,7 @@
                 - "-i"
                 - "-c"
                 - >
-                  git clone {{ repository }} /srv/src && curl -X PUT -d '{{ configuration }}' --unix-socket /var/run/control.unit.sock http://localhost/
+                  git clone {{ repository }} /srv/src && curl -X PUT -d '{{ configuration }}' http://localhost:8443/
     restart_policy: Always
 
 ##############################################################################
@@ -63,6 +65,9 @@
       app: '{{ namespace }}'
       service: nginx-unit-apb
     ports:
+      - name: api
+        port: 8443
+        target_port: 8443
       - name: app1
         port: 8300
         target_port: 8300
@@ -76,6 +81,17 @@
 ## selector, and an optional security configuration.
 ## https://docs.openshift.org/latest/architecture/core_concepts/routes.html
 ##############################################################################
+- name: Create NGINX Unit APB api route
+  openshift_v1_route:
+    name: nginx-unit-apb-api
+    namespace: '{{ namespace }}'
+    labels:
+      app: '{{ namespace }}'
+      service: nginx-unit-apb-api
+    state: present
+    to_name: nginx-unit-apb
+    spec_port_target_port: api
+
 - name: Create NGINX Unit APB app1 route
   openshift_v1_route:
     name: nginx-unit-apb-app1

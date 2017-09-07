@@ -26,4 +26,4 @@ RUN apt-get update \
 
 STOPSIGNAL SIGTERM
 
-CMD ["unitd", "--no-daemon"]
+CMD ["unitd", "--no-daemon", "--control", "8443"]
