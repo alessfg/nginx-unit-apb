@@ -24,6 +24,8 @@ RUN apt-get update \
     && apt-get remove --purge --autoremove -y apt-transport-https \
     && rm -rf /var/lib/apt/lists/*
 
+RUN ln -fs /dev/stdout /var/log/unitd.log
+
 STOPSIGNAL SIGTERM
 
 CMD ["unitd", "--no-daemon", "--control", "8443"]
