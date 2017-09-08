@@ -21,7 +21,8 @@ RUN apt-get update \
     echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" >> /etc/apt/sources.list \
     && apt-get update \
     && apt-get install -y unit \
-    && apt-get remove --purge --autoremove -y apt-transport-https && rm -rf /var/lib/apt/lists/*
+    && apt-get remove --purge --autoremove -y apt-transport-https \
+    && rm -rf /var/lib/apt/lists/*
 
 STOPSIGNAL SIGTERM
 
