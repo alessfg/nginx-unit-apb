@@ -45,7 +45,7 @@
                 - "-i"
                 - "-c"
                 - >
-                  git clone {{ repository }} /srv/src && curl -X PUT -d '{{ configuration }}' http://localhost:8443/
+                  git clone {{ repository }} /srv/src && curl -X PUT -d '{{ configuration }}' http://localhost:8443/config
     restart_policy: Always
 
 ##############################################################################
